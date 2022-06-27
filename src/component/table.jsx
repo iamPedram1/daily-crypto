@@ -3,8 +3,25 @@ import _ from "lodash";
 import TableHead from "./common/tableHead";
 import TableBody from "./common/tableBody";
 import { getData } from "../services/allServices";
+import { TextField, Box } from "@mui/material";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  direction: "rtl", // Both here and <body dir="rtl">
+});
+// Create rtl cache
+const cacheRtl = createCache({
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
 const Table = () => {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
   const [sortPath, setSortPath] = useState({
     rank: "asc",
     name: "asc",
@@ -19,12 +36,12 @@ const Table = () => {
   }, []);
 
   const handleSort = (column) => {
+    console.log(column);
     //Clone The State
     const dataClone = [...data];
     //
     const ascOrDesc = sortPath[column] === "asc" ? "desc" : "asc";
-    // Sort
-    // Is Number Or String
+    // It's String or Number
     const sorted =
       column === "name"
         ? _.orderBy(dataClone, column, ascOrDesc)
@@ -35,12 +52,39 @@ const Table = () => {
     setData(sorted);
   };
 
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+  const filteredData =
+    search.length > 0
+      ? data.filter((item) =>
+          item["name"].toLowerCase().includes(search.toLowerCase())
+        )
+      : data;
+
   return (
     <>
-      <table className="table" style={{ margin: "10rem !important" }}>
-        <TableHead sortPath={sortPath} onSort={handleSort} />
-        <TableBody data={data} />
-      </table>
+      <Box sx={{ margin: "1rem", direction: "rtl" }}>
+        <CacheProvider value={cacheRtl}>
+          <ThemeProvider theme={theme}>
+            <div dir="rtl">
+              <TextField
+                value={search}
+                sx={{ width: "100%" }}
+                onChange={handleChange}
+                label="جستجوی ارز"
+                variant="outlined"
+              />
+            </div>
+          </ThemeProvider>
+        </CacheProvider>
+        <div className="table-responsive">
+          <table className="table">
+            <TableHead sortPath={sortPath} onSort={handleSort} />
+            <TableBody data={filteredData} />
+          </table>
+        </div>
+      </Box>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { Tooltip } from "@mui/material";
 import HelpIcon from "@mui/icons-material/Help";
 
@@ -14,20 +13,19 @@ const TableHead = ({ onSort, sortPath }) => {
     <>
       <thead>
         <tr>
-          <th onClick={() => onSort("rank")}>
+          <th scope="col" onClick={() => onSort("rank")}>
             <span>رتبه</span>
             <span>{sortIcon("rank")}</span>
           </th>
-          <th onClick={() => onSort("name")}>
+          <th scope="col" onClick={() => onSort("name")}>
             <span>ارز دیجیتال</span>
             <span>{sortIcon("name")}</span>
           </th>
-          <th onClick={() => onSort("priceUsd")}>
+          <th scope="col" onClick={() => onSort("priceUsd")}>
             <span>قیمت</span>
             <span>{sortIcon("priceUsd")}</span>
           </th>
-          <th onClick={() => onSort("vwap24Hr")}>
-            <span>میانگین وزنی قیمت سهم</span>
+          <th scope="col" onClick={() => onSort("vwap24Hr")}>
             <Tooltip
               title="            به زبان ساده، این اندیکاتور قیمت میانگین سهام را بر اساس سهم‌هایی که با قیمت‌های مختلف معامله شده‌اند، محاسبه می‌کند و معمولا در یک بازه زمانی یک روزه محاسبه می‌شود
               "
@@ -36,14 +34,15 @@ const TableHead = ({ onSort, sortPath }) => {
               arrow
             >
               <span>
-                <HelpIcon />
+                <HelpIcon color="primary" />
               </span>
             </Tooltip>
+            <span>میانگین وزنی قیمت سهم</span>
             <span>{sortIcon("vwap24Hr")}</span>
           </th>
 
           <th onClick={() => onSort("changePercent24Hr")}>
-            <span>تغییرات</span>
+            <span>تغییرات روزانه</span>
             <span>{sortIcon("changePercent24Hr")}</span>
           </th>
         </tr>

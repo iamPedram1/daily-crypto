@@ -29,13 +29,18 @@ th {
   cursor: pointer;
 }
 
+table,
 td,
-th {
+tr,
+th,
+thead,
+tfoot {
   text-align: center;
   vertical-align: middle;
 }
 
 .changes__badge {
+  color: #fff;
   width: 66px;
   height: 35px;
   border-radius: 15px;
@@ -50,4 +55,33 @@ th {
 
 .success {
   background-color: #14d199;
+}
+
+.nav__title {
+  margin-top: 10px;
+}
+
+.mobile__nav,
+.desktop__nav {
+  color: #fff;
+}
+
+.desktop__nav {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .desktop__nav {
+    display: block;
+  }
+  .mobile__nav {
+    display: none;
+  }
+}
+
+hr {
+  height: 1px;
+  color: #123455;
+  background-color: #123455;
+  border: none;
 }

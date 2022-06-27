@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from "react";
-import _ from "lodash";
-import TableHead from "./common/tableHead";
-import TableBody from "./common/tableBody";
-import { getData } from "../services/allServices";
 import { TextField, Box } from "@mui/material";
-import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  direction: "rtl", // Both here and <body dir="rtl">
-});
-// Create rtl cache
-const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
-});
+import {
+  getData,
+  handleChange,
+  paginate,
+  RightToLeft,
+} from "../services/allServices";
+import _ from "lodash";
+import Pagination from "./pagination";
+import TableHead from "./common/tableHead";
+import TableBodys from "./common/tableBody";
 
 const Table = () => {
+  // State
   const [data, setData] = useState([]);
+  const [pageSize, setPageSize] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [sortPath, setSortPath] = useState({
     rank: "asc",
@@ -30,60 +25,63 @@ const Table = () => {
     changePercent24Hr: "asc",
   });
 
-  // Getting Data on Page Load
+  // Component Did Mount
   useEffect(() => {
     getData(setData);
   }, []);
 
+  // Event Handlers
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   const handleSort = (column) => {
-    console.log(column);
-    //Clone The State
     const dataClone = [...data];
-    //
     const ascOrDesc = sortPath[column] === "asc" ? "desc" : "asc";
-    // It's String or Number
+    // String or Num
     const sorted =
       column === "name"
         ? _.orderBy(dataClone, column, ascOrDesc)
         : _.orderBy(dataClone, (o) => +o[column], ascOrDesc);
 
-    // Update The State
     setSortPath((data) => ({ ...data, [column]: ascOrDesc }));
     setData(sorted);
   };
 
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
+  // Filter
   const filteredData =
     search.length > 0
       ? data.filter((item) =>
           item["name"].toLowerCase().includes(search.toLowerCase())
         )
       : data;
+  // Paginate
+  const pagination = paginate(filteredData, currentPage, pageSize);
 
   return (
     <>
-      <Box sx={{ margin: "1rem", direction: "rtl" }}>
-        <CacheProvider value={cacheRtl}>
-          <ThemeProvider theme={theme}>
-            <div dir="rtl">
-              <TextField
-                value={search}
-                sx={{ width: "100%" }}
-                onChange={handleChange}
-                label="جستجوی ارز"
-                variant="outlined"
-              />
-            </div>
-          </ThemeProvider>
-        </CacheProvider>
+      <Box sx={{ direction: "rtl" }}>
+        <RightToLeft>
+          <TextField
+            value={search}
+            sx={{ width: "100%" }}
+            onChange={(e) => handleChange(e, setSearch)}
+            label="جستجوی ارز"
+            variant="outlined"
+          />
+        </RightToLeft>
         <div className="table-responsive">
           <table className="table">
             <TableHead sortPath={sortPath} onSort={handleSort} />
-            <TableBody data={filteredData} />
+            <TableBodys data={pagination} />
           </table>
         </div>
+        <Pagination
+          onPageChange={handlePageChange}
+          data={filteredData}
+          currentPage={currentPage}
+          pageSize={pageSize}
+        />
       </Box>
     </>
   );

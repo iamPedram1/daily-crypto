@@ -12,8 +12,32 @@ const NavBar = () => {
           alignItems="center"
         >
           <Grid item>
-            <div style={{ color: "white" }}>
-              Daily Crypto | قیمت لحظه ای انواع ارز دیجیتال
+            <div className="desktop__nav">
+              <Grid container columnSpacing={2}>
+                <Grid item>
+                  <div className="nav__title">Daily Crypto</div>
+                </Grid>
+                <Grid item>
+                  <div
+                    style={{ borderRight: "1.5px solid #fff", height: "50px" }}
+                  ></div>
+                </Grid>
+                <Grid item>
+                  <div className="nav__title">
+                    قیمت لحظه ای انواع ارز دیجیتال
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
+            <div className="mobile__nav">
+              <div>Daily Crypto</div>
+              {/* <hr className="hr__line" /> */}
+              <div
+                style={{
+                  borderTop: "1px solid #fff",
+                }}
+              ></div>
+              <div>قیمت لحظه ای انواع ارز دیجیتال</div>
             </div>
           </Grid>
           <Grid item sx={{ color: "white" }}>

@@ -37,8 +37,10 @@ const TableHead = ({ onSort, sortPath }) => {
                 <HelpIcon color="primary" />
               </span>
             </Tooltip>
-            <span>میانگین وزنی قیمت سهم</span>
-            <span>{sortIcon("vwap24Hr")}</span>
+            <span>
+              میانگین وزنی قیمت سهم
+              <span>{sortIcon("vwap24Hr")}</span>
+            </span>
           </th>
 
           <th onClick={() => onSort("changePercent24Hr")}>

@@ -1,6 +1,7 @@
 import React from "react";
-import { formatter } from "../../services/allServices";
-const TableBody = ({ data }) => {
+import { RemoveDecimal } from "../../services/allServices";
+
+const TableBodys = ({ data }) => {
   return (
     <>
       <tbody>
@@ -10,8 +11,8 @@ const TableBody = ({ data }) => {
               <tr className="table-light" key={data.id}>
                 <td>{data.rank}</td>
                 <td>{data.name}</td>
-                <td>{formatter.format(data.priceUsd)}</td>
-                <td>{formatter.format(data.vwap24Hr)}</td>
+                <td>{RemoveDecimal(data.priceUsd)}</td>
+                <td>{RemoveDecimal(data.vwap24Hr)}</td>
                 <td>
                   <div
                     className={
@@ -33,4 +34,4 @@ const TableBody = ({ data }) => {
   );
 };
 
-export default TableBody;
+export default TableBodys;

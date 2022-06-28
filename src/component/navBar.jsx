@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 const NavBar = () => {
   return (
@@ -41,8 +41,28 @@ const NavBar = () => {
             </div>
           </Grid>
           <Grid item sx={{ color: "white" }}>
-            <GitHubIcon sx={{ color: "white", fontSize: "50px" }} />
-            <span>| By Pedi</span>
+            <Grid container columnSpacing={0.5}>
+              <Grid item>
+                <a
+                  href="https://github.com/iamPedram1/daily-crypto"
+                  target="_blank"
+                  className="github__icon"
+                >
+                  <GitHubIcon sx={{ fontSize: "50px" }} />
+                </a>
+              </Grid>
+              <Grid item>
+                <div
+                  style={{
+                    borderLeft: "1px solid white",
+                    height: "50px",
+                  }}
+                ></div>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ marginTop: "15px" }}>By Pedi</Typography>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </nav>

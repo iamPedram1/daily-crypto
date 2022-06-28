@@ -1,7 +1,9 @@
 import React from "react";
+import { IconButton } from "@mui/material";
 import { RemoveDecimal } from "../../services/allServices";
-
-const TableBodys = ({ data }) => {
+import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+const TableBody = ({ data, favorite, onFavorite }) => {
   return (
     <>
       <tbody>
@@ -26,6 +28,24 @@ const TableBodys = ({ data }) => {
                       : `%${data.changePercent24Hr.slice(0, 4)}`}
                   </div>
                 </td>
+                <td>
+                  {favorite.includes(data) ? (
+                    <>
+                      <IconButton onClick={() => onFavorite(data)}>
+                        <StarOutlinedIcon
+                          className="star"
+                          sx={{ color: "#FFA500" }}
+                        />
+                      </IconButton>
+                    </>
+                  ) : (
+                    <>
+                      <IconButton onClick={() => onFavorite(data)}>
+                        <StarOutlineOutlinedIcon className="star" />
+                      </IconButton>
+                    </>
+                  )}
+                </td>
               </tr>
             );
           })}
@@ -34,4 +54,4 @@ const TableBodys = ({ data }) => {
   );
 };
 
-export default TableBodys;
+export default TableBody;

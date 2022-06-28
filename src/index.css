@@ -40,12 +40,18 @@ tfoot {
 }
 
 .changes__badge {
+  display: inline-block;
   color: #fff;
-  width: 66px;
-  height: 35px;
+  width: 70px;
+  max-width: 70px;
+  /* height: 35px; */
   border-radius: 15px;
   text-align: center;
-  padding: 0.3rem 0;
+  vertical-align: middle;
+  /* padding: 0.5rem 0.7rem; */
+  /* margin: 0; */
+  animation: heartbeat 10s infinite;
+  animation-delay: 3s;
   overflow: hidden;
 }
 
@@ -79,9 +85,110 @@ tfoot {
   }
 }
 
-hr {
-  height: 1px;
-  color: #123455;
-  background-color: #123455;
-  border: none;
+.star {
+  cursor: pointer;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: translateY(3px);
+  }
+  20% {
+    transform: translateY(-3px);
+  }
+  40% {
+    transform: translateY(3px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+  80% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+.loading {
+  text-transform: uppercase;
+  width: 150px;
+  text-align: center;
+  line-height: 50px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: auto;
+  transform: translateY(-50%);
+}
+
+.loading span {
+  position: relative;
+  z-index: 999;
+  color: #fff;
+}
+.loading:before {
+  content: "";
+  background: #61bdb6;
+  width: 128px;
+  height: 36px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  animation: 2s loadingBefore infinite ease-in-out;
+}
+
+@keyframes loadingBefore {
+  0% {
+    transform: translateX(-14px);
+  }
+  50% {
+    transform: translateX(14px);
+  }
+  100% {
+    transform: translateX(-14px);
+  }
+}
+
+.loading:after {
+  content: "";
+  background: #ff3600;
+  width: 14px;
+  height: 60px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0.5;
+
+  animation: 2s loadingAfter infinite ease-in-out;
+}
+
+@keyframes loadingAfter {
+  0% {
+    transform: translateX(-50px);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+.github__icon {
+  color: #fff;
+}
+
+.github__icon:hover {
+  color: #ccc !important;
 }

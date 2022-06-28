@@ -32,6 +32,9 @@ export const formatter = new Intl.NumberFormat("en-US", {
 export const RemoveDecimal = (number) => {
   const price = formatter.format(number);
   const index = price.indexOf(".");
+  if (number > 0 && number < 10) {
+    return price;
+  }
   return price.slice(0, index);
 };
 

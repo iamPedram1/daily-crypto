@@ -14,7 +14,7 @@ const Pagination = ({ data, pageSize, onPageChange, currentPage }) => {
             <ul className="pagination">
               {page.map((page) => {
                 return (
-                  <>
+                  <React.Fragment key={page}>
                     <li
                       className={
                         currentPage === page ? "page-item active" : "page-item"
@@ -27,7 +27,7 @@ const Pagination = ({ data, pageSize, onPageChange, currentPage }) => {
                         {page}
                       </a>
                     </li>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </ul>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import {
   getData,
   handleChange,
@@ -11,11 +11,18 @@ import Pagination from "./pagination";
 import TableHead from "./common/tableHead";
 import TableBody from "./common/tableBody";
 import Loading from "./common/loading";
+import TextfieldAndCheckbox from "./common/textfieldAndCheckbox";
+
+const local = localStorage.getItem("favorite");
+const store = local === null ? [] : JSON.parse(local);
 
 const Table = () => {
   // State
-  const [data, setData] = useState([]);
-  const [favorite, setFavorite] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+  const [favoriteData, setFavoriteData] = useState(
+    localStorage.length > 0 ? store : []
+  );
+  const [showFavorite, setShowFavorite] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [sortPath, setSortPath] = useState({
@@ -26,25 +33,29 @@ const Table = () => {
     changePercent24Hr: "asc",
   });
   const pageSize = 20;
+
   // Component Did Mount
   useEffect(() => {
-    getData(setData);
+    getData(setOriginalData);
   }, []);
 
   // Event Handlers
   const handleFavorite = (crypto) => {
-    const clone = [...favorite];
+    const clone = [...favoriteData];
     if (clone.includes(crypto)) {
       const index = clone.indexOf(crypto);
       clone.splice(index, 1);
-      return setFavorite(clone);
+      setFavoriteData(clone);
+      localStorage.setItem("favorite", JSON.stringify(clone));
+      return;
     }
     clone.push(crypto);
-    setFavorite(clone);
+    setFavoriteData(clone);
+    localStorage.setItem("favorite", JSON.stringify(clone));
   };
 
   const handleSort = (column) => {
-    const dataClone = [...data];
+    const dataClone = showFavorite ? [...favoriteData] : [...originalData];
     const ascOrDesc = sortPath[column] === "asc" ? "desc" : "asc";
     // String or Integer
     const sorted =
@@ -53,53 +64,53 @@ const Table = () => {
         : _.orderBy(dataClone, (o) => +o[column], ascOrDesc);
 
     setSortPath((data) => ({ ...data, [column]: ascOrDesc }));
-    setData(sorted);
+    return showFavorite ? setFavoriteData(sorted) : setOriginalData(sorted);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
   // Filter
+  const dataToFilter = showFavorite ? favoriteData : originalData;
   const filteredData =
     search.length > 0
-      ? data.filter((item) =>
+      ? dataToFilter.filter((item) =>
           item["name"].toLowerCase().includes(search.toLowerCase())
         )
-      : data;
+      : dataToFilter;
   // Paginate
-  const pagination = paginate(filteredData, currentPage, pageSize);
+  const paginated = paginate(filteredData, currentPage, pageSize);
   return (
     <>
-      {data.length === 0 && <Loading />}
-      {data.length > 0 && (
+      {originalData.length === 0 && <Loading />}
+      {originalData.length > 0 && (
         <>
           <Box sx={{ direction: "rtl", margin: "1rem 2rem" }}>
             <RightToLeft>
-              <TextField
-                value={search}
-                sx={{ width: "100%", margin: "1rem 0" }}
-                onChange={(e) => handleChange(e, setSearch)}
-                label="جستجوی ارز"
-                variant="outlined"
+              <TextfieldAndCheckbox
+                favorite={favoriteData}
+                onChange={handleChange}
+                onSetFavorite={setShowFavorite}
+                search={search}
+                onSetSearch={setSearch}
+              />
+              <div className="table-responsive">
+                <table className="table">
+                  <TableHead sortPath={sortPath} onSort={handleSort} />
+                  <TableBody
+                    data={paginated}
+                    favorite={favoriteData}
+                    onFavorite={handleFavorite}
+                  />
+                </table>
+              </div>
+              <Pagination
+                onPageChange={handlePageChange}
+                data={filteredData}
+                currentPage={currentPage}
+                pageSize={pageSize}
               />
             </RightToLeft>
-            <div className="table-responsive">
-              <table className="table">
-                <TableHead sortPath={sortPath} onSort={handleSort} />
-                <TableBody
-                  data={pagination}
-                  favorite={favorite}
-                  onFavorite={handleFavorite}
-                />
-              </table>
-            </div>
-            <Pagination
-              onPageChange={handlePageChange}
-              data={filteredData}
-              currentPage={currentPage}
-              pageSize={pageSize}
-            />
           </Box>
         </>
       )}

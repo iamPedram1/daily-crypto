@@ -192,3 +192,13 @@ tfoot {
 .github__icon:hover {
   color: #ccc !important;
 }
+
+.checkbox {
+  margin: 0 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .checkbox {
+    margin: 0 1rem 1rem 1rem;
+  }
+}

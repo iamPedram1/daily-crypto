@@ -6,7 +6,7 @@ import { prefixer } from "stylis";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
-
+import { toast } from "react-toastify";
 const theme = createTheme({
   direction: "rtl",
 });
@@ -17,9 +17,20 @@ const cacheRtl = createCache({
 // Getting Data From the Server
 
 export const getData = async (setState) => {
-  const { data } = await axios.get(config.apiEndPoint);
-
-  setState(data.data);
+  try {
+    const { data } = await axios.get(config.apiEndPoint);
+    setState(data.data);
+  } catch (ex) {
+    if (ex.code == "ERR_NETWORK") {
+      const message = (
+        <span>
+          !خطا در برقراری ارتباط با سرور <br />
+          لطفا فیلترشکن خود را روشن کنید
+        </span>
+      );
+      toast.error(message);
+    }
+  }
 };
 
 // Working with Money

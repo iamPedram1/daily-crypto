@@ -12,6 +12,7 @@ import TableHead from "./common/tableHead";
 import TableBody from "./common/tableBody";
 import Loading from "./common/loading";
 import TextfieldAndCheckbox from "./common/textfieldAndCheckbox";
+import { ToastContainer } from "react-toastify";
 
 // Check if There are favorite Data in LocalStorage
 const local = localStorage.getItem("favorite");
@@ -85,6 +86,7 @@ const Table = () => {
   const paginated = paginate(filteredData, currentPage, pageSize);
   return (
     <>
+      <ToastContainer />
       {originalData.length === 0 && <Loading />}
       {originalData.length > 0 && (
         <>

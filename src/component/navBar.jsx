@@ -38,7 +38,7 @@ const NavBar = () => {
             </div>
             <div className="mobile__nav">
               <div>
-                <span sx={{ marginTop: "1rem" }}>Daily Crypto</span>
+                <span className="nav__title">Daily Crypto</span>
                 <span>
                   <Logo />
                 </span>

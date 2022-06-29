@@ -29,6 +29,7 @@ const TableHead = ({ onSort, sortPath }) => {
           <th scope="col" onClick={() => onSort("vwap24Hr")}>
             <ConfigProvider direction="rtl">
               <Tooltip
+                trigger={["click", "hover", "focus", "contextMenu"]}
                 title="به زبان ساده، این اندیکاتور قیمت سهام را بر اساس سهم‌هایی که با میانگین قیمت‌های مختلف معامله شده‌اند، محاسبه می‌کند و معمولا در یک بازه زمانی یک روزه محاسبه می‌شود"
                 placement="top"
                 color="blue"
@@ -39,7 +40,8 @@ const TableHead = ({ onSort, sortPath }) => {
               </Tooltip>
             </ConfigProvider>
             <span>
-              <span>میانگین وزنی قیمت سهم</span>
+              <span>موقس</span>
+
               <span>{sortIcon("vwap24Hr")}</span>
             </span>
           </th>
@@ -48,7 +50,7 @@ const TableHead = ({ onSort, sortPath }) => {
             <span>تغییرات روزانه</span>
             <span>{sortIcon("changePercent24Hr")}</span>
           </th>
-          <th />
+          <th className="default__cursor" />
         </tr>
       </thead>
     </>

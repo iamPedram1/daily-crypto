@@ -13,15 +13,14 @@ import TableBody from "./common/tableBody";
 import Loading from "./common/loading";
 import TextfieldAndCheckbox from "./common/textfieldAndCheckbox";
 
+// Check if There are favorite Data in LocalStorage
 const local = localStorage.getItem("favorite");
 const store = local === null ? [] : JSON.parse(local);
 
 const Table = () => {
   // State
   const [originalData, setOriginalData] = useState([]);
-  const [favoriteData, setFavoriteData] = useState(
-    localStorage.length > 0 ? store : []
-  );
+  const [favoriteData, setFavoriteData] = useState(store);
   const [showFavorite, setShowFavorite] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -85,15 +84,17 @@ const Table = () => {
       {originalData.length === 0 && <Loading />}
       {originalData.length > 0 && (
         <>
-          <Box sx={{ direction: "rtl", margin: "1rem 2rem" }}>
+          <Box sx={{ direction: "rtl" }}>
             <RightToLeft>
-              <TextfieldAndCheckbox
-                favorite={favoriteData}
-                onChange={handleChange}
-                onSetFavorite={setShowFavorite}
-                search={search}
-                onSetSearch={setSearch}
-              />
+              <Box sx={{ margin: "0.5rem 2rem" }}>
+                <TextfieldAndCheckbox
+                  favorite={favoriteData}
+                  onChange={handleChange}
+                  onSetFavorite={setShowFavorite}
+                  search={search}
+                  onSetSearch={setSearch}
+                />
+              </Box>
               <div className="table-responsive">
                 <table className="table">
                   <TableHead sortPath={sortPath} onSort={handleSort} />
@@ -104,13 +105,13 @@ const Table = () => {
                   />
                 </table>
               </div>
-              <Pagination
-                onPageChange={handlePageChange}
-                data={filteredData}
-                currentPage={currentPage}
-                pageSize={pageSize}
-              />
             </RightToLeft>
+            <Pagination
+              onPageChange={handlePageChange}
+              data={filteredData}
+              currentPage={currentPage}
+              pageSize={pageSize}
+            />
           </Box>
         </>
       )}

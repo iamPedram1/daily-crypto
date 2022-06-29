@@ -35,6 +35,7 @@ const TextfieldAndCheckbox = ({
           {favorite.length === 0 ? (
             <ConfigProvider direction="rtl">
               <Tooltip
+                trigger={["click", "hover", "focus", "contextMenu"]}
                 title="لیست ارز های مورد علاقه شما خالی است"
                 placement="top"
                 color="red"

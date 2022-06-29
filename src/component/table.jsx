@@ -46,6 +46,9 @@ const Table = () => {
       clone.splice(index, 1);
       setFavoriteData(clone);
       localStorage.setItem("favorite", JSON.stringify(clone));
+      if (clone.length === 0) {
+        setShowFavorite(false);
+      }
       return;
     }
     clone.push(crypto);
@@ -70,6 +73,7 @@ const Table = () => {
     setCurrentPage(page);
   };
   // Filter
+
   const dataToFilter = showFavorite ? favoriteData : originalData;
   const filteredData =
     search.length > 0

@@ -16,6 +16,7 @@ const TextfieldAndCheckbox = ({
   search,
   onSetSearch,
   favorite,
+  onSetPage,
 }) => {
   return (
     <>
@@ -44,7 +45,10 @@ const TextfieldAndCheckbox = ({
                   <FormGroup className="checkbox">
                     <FormControlLabel
                       label="فقط ارز های مورد علاقه من را نمایش بده"
-                      onChange={(e, value) => onSetFavorite(value)}
+                      onChange={(e, value) => {
+                        onSetFavorite(value);
+                        onSetPage(1);
+                      }}
                       control={<Checkbox />}
                       disabled={favorite.length === 0}
                     />
@@ -56,7 +60,10 @@ const TextfieldAndCheckbox = ({
             <FormGroup className="checkbox">
               <FormControlLabel
                 label="فقط ارز های مورد علاقه من را نمایش بده"
-                onChange={(e, value) => onSetFavorite(value)}
+                onChange={(e, value) => {
+                  onSetFavorite(value);
+                  onSetPage(1);
+                }}
                 control={<Checkbox />}
                 disabled={favorite.length === 0}
               />

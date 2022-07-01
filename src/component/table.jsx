@@ -96,6 +96,7 @@ const Table = () => {
                 <TextfieldAndCheckbox
                   favorite={favoriteData}
                   onChange={handleChange}
+                  onSetPage={setCurrentPage}
                   onSetFavorite={setShowFavorite}
                   search={search}
                   onSetSearch={setSearch}

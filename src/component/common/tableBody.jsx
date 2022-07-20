@@ -7,10 +7,8 @@ const TableBody = ({ data, favorite, onFavorite }) => {
   const retuner = (number) => {
     const toStr = number.toString();
     if (toStr[0] === "-") {
-      console.log(toStr.slice(0, 4));
       return toStr.slice(0, 5);
     } else {
-      console.log(toStr.slice(0, 4));
       return toStr.slice(0, 4);
     }
   };

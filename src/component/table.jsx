@@ -38,7 +38,7 @@ const Table = () => {
   useEffect(() => {
     getData(setOriginalData);
   }, []);
-  console.log(originalData);
+
   // Event Handlers
   const handleFavorite = (crypto) => {
     const clone = [...favoriteData];

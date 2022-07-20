@@ -4,6 +4,17 @@ import { RemoveDecimal } from "../../services/allServices";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 const TableBody = ({ data, favorite, onFavorite }) => {
+  const retuner = (number) => {
+    const toStr = number.toString();
+    if (toStr[0] === "-") {
+      console.log(toStr.slice(0, 4));
+      return toStr.slice(0, 5);
+    } else {
+      console.log(toStr.slice(0, 4));
+      return toStr.slice(0, 4);
+    }
+  };
+
   return (
     <>
       <tbody>
@@ -11,21 +22,30 @@ const TableBody = ({ data, favorite, onFavorite }) => {
           data.map((data) => {
             return (
               <tr className="table-light" key={data.id}>
-                <td>{data.rank}</td>
+                <td>{data.market_cap_rank}</td>
                 <td>{data.name}</td>
-                <td>{RemoveDecimal(data.priceUsd)}</td>
-                <td>{RemoveDecimal(data.vwap24Hr)}</td>
+                <td>
+                  <img
+                    src={data.image}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      objectFit: "contain",
+                    }}
+                  />
+                </td>
+                <td>{RemoveDecimal(data.current_price)}</td>
                 <td>
                   <div
                     className={
-                      data.changePercent24Hr > 0
+                      data.price_change_percentage_24h > 0
                         ? "changes__badge success"
                         : "changes__badge danger"
                     }
                   >
-                    {data.changePercent24Hr[0] === "-"
-                      ? `%${data.changePercent24Hr.slice(0, 5)}`
-                      : `%${data.changePercent24Hr.slice(0, 4)}`}
+                    {data.price_change_percentage_24h[0] === "-"
+                      ? `${retuner(data.price_change_percentage_24h)}%`
+                      : `${retuner(data.price_change_percentage_24h)}%`}
                   </div>
                 </td>
                 <td>

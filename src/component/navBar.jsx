@@ -49,7 +49,9 @@ const NavBar = () => {
                   margin: "0.5rem 0",
                 }}
               ></div>
-              <Typography>قیمت لحظه ای انواع ارز دیجیتال</Typography>
+              <Typography sx={{ fontSize: "14px" }}>
+                قیمت لحظه ای انواع ارز دیجیتال
+              </Typography>
             </div>
           </Grid>
           <Grid item sx={{ color: "white" }}>

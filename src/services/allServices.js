@@ -19,7 +19,7 @@ const cacheRtl = createCache({
 export const getData = async (setState) => {
   try {
     const { data } = await axios.get(config.apiEndPoint);
-    setState(data.data);
+    setState(data);
   } catch (ex) {
     if (ex.code == "ERR_NETWORK") {
       const message = (

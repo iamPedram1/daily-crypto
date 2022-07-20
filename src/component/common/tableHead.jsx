@@ -1,9 +1,6 @@
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { Fade } from "@mui/material";
-import { Tooltip, ConfigProvider } from "antd";
-import HelpIcon from "@mui/icons-material/Help";
 
 const TableHead = ({ onSort, sortPath }) => {
   const sortIcon = (name) => {
@@ -14,41 +11,24 @@ const TableHead = ({ onSort, sortPath }) => {
     <>
       <thead>
         <tr className="table-dark">
-          <th scope="col" onClick={() => onSort("rank")}>
+          <th scope="col" onClick={() => onSort("market_cap_rank")}>
             <span>رتبه</span>
-            <span>{sortIcon("rank")}</span>
+            <span>{sortIcon("market_cap_rank")}</span>
           </th>
           <th scope="col" onClick={() => onSort("name")}>
             <span>ارز دیجیتال</span>
             <span>{sortIcon("name")}</span>
           </th>
-          <th scope="col" onClick={() => onSort("priceUsd")}>
+          <th scope="col">
+            <span>لوگو</span>
+          </th>
+          <th scope="col" onClick={() => onSort("current_price")}>
             <span>قیمت</span>
-            <span>{sortIcon("priceUsd")}</span>
+            <span>{sortIcon("current_price")}</span>
           </th>
-          <th scope="col" onClick={() => onSort("vwap24Hr")}>
-            <ConfigProvider direction="rtl">
-              <Tooltip
-                trigger={["click", "hover", "focus", "contextMenu"]}
-                title="به زبان ساده، این اندیکاتور قیمت سهام را بر اساس سهم‌هایی که با میانگین قیمت‌های مختلف معامله شده‌اند، محاسبه می‌کند و معمولا در یک بازه زمانی یک روزه محاسبه می‌شود"
-                placement="top"
-                color="blue"
-              >
-                <span>
-                  <HelpIcon color="primary" />
-                </span>
-              </Tooltip>
-            </ConfigProvider>
-            <span>
-              <span>موقس</span>
-
-              <span>{sortIcon("vwap24Hr")}</span>
-            </span>
-          </th>
-
-          <th onClick={() => onSort("changePercent24Hr")}>
+          <th onClick={() => onSort("price_change_percentage_24h")}>
             <span>تغییرات روزانه</span>
-            <span>{sortIcon("changePercent24Hr")}</span>
+            <span>{sortIcon("price_change_percentage_24h")}</span>
           </th>
           <th className="default__cursor" />
         </tr>

@@ -13,6 +13,7 @@ import TableBody from "./common/tableBody";
 import Loading from "./common/loading";
 import TextfieldAndCheckbox from "./common/textfieldAndCheckbox";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 
 // Check if There are favorite Data in LocalStorage
 const local = localStorage.getItem("favorite");
@@ -26,11 +27,10 @@ const Table = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [sortPath, setSortPath] = useState({
-    rank: "asc",
+    market_cap_rank: "asc",
     name: "asc",
-    priceUsd: "asc",
-    vwap24Hr: "asc",
-    changePercent24Hr: "asc",
+    current_price: "asc",
+    price_change_percentage_24h: "asc",
   });
   const pageSize = 20;
 
@@ -38,7 +38,7 @@ const Table = () => {
   useEffect(() => {
     getData(setOriginalData);
   }, []);
-
+  console.log(originalData);
   // Event Handlers
   const handleFavorite = (crypto) => {
     const clone = [...favoriteData];

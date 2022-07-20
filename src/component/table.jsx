@@ -13,7 +13,6 @@ import TableBody from "./common/tableBody";
 import Loading from "./common/loading";
 import TextfieldAndCheckbox from "./common/textfieldAndCheckbox";
 import { ToastContainer } from "react-toastify";
-import axios from "axios";
 
 // Check if There are favorite Data in LocalStorage
 const local = localStorage.getItem("favorite");

@@ -1,12 +1,13 @@
-import axios from "axios";
-import config from "../config.json";
-import _ from "lodash";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { toast } from "react-toastify";
+import axios from "axios";
+import config from "../config.json";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
-import { toast } from "react-toastify";
+import _ from "lodash";
+
 const theme = createTheme({
   direction: "rtl",
 });
@@ -21,14 +22,8 @@ export const getData = async (setState) => {
     const { data } = await axios.get(config.apiEndPoint);
     setState(data);
   } catch (ex) {
-    if (ex.code == "ERR_NETWORK") {
-      const message = (
-        <span>
-          !خطا در برقراری ارتباط با سرور <br />
-          لطفا فیلترشکن خود را روشن کنید
-        </span>
-      );
-      toast.error(message);
+    if (ex.code === "ERR_NETWORK") {
+      toast.error("!خطا در برقراری ارتباط با سرور");
     }
   }
 };

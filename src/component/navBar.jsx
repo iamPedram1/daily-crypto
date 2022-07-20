@@ -60,6 +60,7 @@ const NavBar = () => {
                 <a
                   href="https://github.com/iamPedram1/daily-crypto"
                   target="_blank"
+                  rel="noreferrer"
                   className="github__icon"
                 >
                   <GitHubIcon sx={{ fontSize: "70px" }} />

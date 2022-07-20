@@ -56,8 +56,8 @@ tfoot {
   text-align: center;
   vertical-align: middle;
   direction: ltr !important;
-  animation: heartbeat 10s infinite;
-  animation-delay: 3s;
+  animation: heartbeat 10s infinite linear;
+  animation-delay: 5s;
   overflow: hidden;
 }
 
@@ -113,8 +113,11 @@ tfoot {
   80% {
     transform: translateY(3px);
   }
-  100% {
+  90% {
     transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 
